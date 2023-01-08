@@ -14,12 +14,12 @@ import {
 import { useAppSelector } from "../../store/hooks";
 import { SearchResults } from "../SearchResults/SearchResults";
 import { Modal } from "../../components/Modal/Modal";
+import { useNavigate } from "react-router-dom";
 
 export const Search: React.FC = () => {
-  const [areSearchResultsDisplayed, setAreSearchResultsDisplayed] =
-    useState(false);
   const dispatch = useDispatch();
-  const searchResults = useAppSelector(selectSearchResults);
+  const navigate = useNavigate();
+
   const searchRequest = useAppSelector(selectSearchRequest);
 
   const onSearchClick = () => {
@@ -29,7 +29,8 @@ export const Search: React.FC = () => {
       )
       .then((response) => {
         dispatch(setSearchResults(apiTransform(response)));
-        setAreSearchResultsDisplayed(true);
+        dispatch(setSearchRequest(searchRequest));
+        navigate("/results");
       });
   };
 
@@ -37,26 +38,17 @@ export const Search: React.FC = () => {
     <div className="searchPageContainer">
       <Navbar />
 
-      {areSearchResultsDisplayed ? (
-        <SearchResults
-          searchResults={searchResults}
-          searchRequest={searchRequest}
-        />
-      ) : (
-        <div className="searchContainer">
-          <div className="searchTitle">Search for a video</div>
-          <div className="searchForm">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              onChange={(event) =>
-                dispatch(setSearchRequest(event.target.value))
-              }
-            />
-            <button onClick={onSearchClick}>Search</button>
-          </div>
+      <div className="searchContainer">
+        <div className="searchTitle">Search for a video</div>
+        <div className="searchForm">
+          <input
+            type="text"
+            placeholder="What are you looking for?"
+            onChange={(event) => dispatch(setSearchRequest(event.target.value))}
+          />
+          <button onClick={onSearchClick}>Search</button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

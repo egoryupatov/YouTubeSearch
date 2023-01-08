@@ -7,6 +7,7 @@ import { APIKey, FavoriteRequest, Video } from "../../constants/constants";
 import {
   Results,
   selectSearchRequest,
+  selectSearchResults,
   setSearchRequest,
   setSearchResults,
 } from "../../store/videosSlice";
@@ -17,16 +18,12 @@ import { useAppSelector } from "../../store/hooks";
 import { Modal } from "../../components/Modal/Modal";
 import { useParams } from "react-router-dom";
 
-interface SearchResultsProps {
-  searchResults: Results;
-  searchRequest: string;
-}
-
-export const SearchResults: React.FC<SearchResultsProps> = (props) => {
+export const SearchResults: React.FC = () => {
   const [isFavoritesModalActive, setIsFavoritesModalActive] = useState(false);
   const [isGridViewEnabled, setIsGridViewEnabled] = useState(false);
   const dispatch = useDispatch();
   const searchRequest = useAppSelector(selectSearchRequest);
+  const searchResults = useAppSelector(selectSearchResults);
   const params = useParams();
 
   const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
@@ -43,6 +40,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
 
   return (
     <div className="searchResultsPageContainer">
+      <Navbar />
       {isFavoritesModalActive ? (
         <Modal
           setIsFavoritesModalActive={setIsFavoritesModalActive}
@@ -68,9 +66,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
         <div className="searchResultsToolBar">
           <div className="searchResultsInfo">
             <div>Search results for "{searchRequest}"</div>
-            <div className="numberOfSearchResults">
-              {props.searchResults.count}
-            </div>
+            <div className="numberOfSearchResults">{searchResults.count}</div>
           </div>
           <div className="searchResultsView">
             <img
@@ -86,7 +82,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
 
         {isGridViewEnabled ? (
           <div className="videoGridContainer">
-            {props.searchResults.videos.map((video) => (
+            {searchResults.videos.map((video) => (
               <GridVideo
                 preview={video.preview}
                 title={video.title}
@@ -97,7 +93,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
           </div>
         ) : (
           <div className="videoListContainer">
-            {props.searchResults.videos.map((video) => (
+            {searchResults.videos.map((video) => (
               <ListVideo
                 preview={video.preview}
                 title={video.title}

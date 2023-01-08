@@ -27,12 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/results",
-    element: (
-      <SearchResults
-        searchResults={{ videos: [], count: 0 }}
-        searchRequest=""
-      />
-    ),
+    element: <SearchResults />,
   },
 ]);
 

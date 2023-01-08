@@ -13,14 +13,12 @@ import { apiTransform } from "../../api/apiTransform";
 import { useDispatch } from "react-redux";
 import { SearchResults } from "../SearchResults/SearchResults";
 import { useAppSelector } from "../../store/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const Favorites: React.FC = () => {
-  const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
   const dispatch = useDispatch();
-  const searchResults = useAppSelector(selectSearchResults);
-  const searchRequest = useAppSelector(selectSearchRequest);
-  const [areSearchResultsDisplayed, setAreSearchResultsDisplayed] =
-    useState(false);
+  const navigate = useNavigate();
+  const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
   const onFavoritesClick = (request: FavoriteRequest) => {
     axios
@@ -30,43 +28,31 @@ export const Favorites: React.FC = () => {
       .then((response) => {
         dispatch(setSearchResults(apiTransform(response)));
         dispatch(setSearchRequest(request.request));
-        setAreSearchResultsDisplayed(true);
+        navigate("/results");
       });
   };
 
   return (
-    <>
-      {areSearchResultsDisplayed ? (
-        <div className="searchResultsPageContainer">
-          <Navbar />
-          <SearchResults
-            searchResults={searchResults}
-            searchRequest={searchRequest}
-          />
-        </div>
-      ) : (
-        <div className="searchResultsPageContainer">
-          <Navbar />
-          <div className="searchResultsContainer">
-            <div className="searchResultsTitle">Favorites</div>
-            <div className="favoritesContainer ">
-              {favoriteRequests ? (
-                favoriteRequests.map((request: FavoriteRequest) => (
-                  <div className="favoriteRequest">
-                    <span onClick={() => onFavoritesClick(request)}>
-                      {request.name}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <div className="favoriteErrorMessage">
-                  <h2>You don't have any favorite requests yet!</h2>
-                </div>
-              )}
+    <div className="searchResultsPageContainer">
+      <Navbar />
+      <div className="searchResultsContainer">
+        <div className="searchResultsTitle">Favorites</div>
+        <div className="favoritesContainer ">
+          {favoriteRequests ? (
+            favoriteRequests.map((request: FavoriteRequest) => (
+              <div className="favoriteRequest">
+                <span onClick={() => onFavoritesClick(request)}>
+                  {request.name}
+                </span>
+              </div>
+            ))
+          ) : (
+            <div className="favoriteErrorMessage">
+              <h2>You don't have any favorite requests yet!</h2>
             </div>
-          </div>
+          )}
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
