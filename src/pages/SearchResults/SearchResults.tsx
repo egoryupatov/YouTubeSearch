@@ -27,8 +27,6 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
   const dispatch = useDispatch();
   const searchRequest = useAppSelector(selectSearchRequest);
 
-  const test = "test";
-
   const onSearchClick = () => {
     axios
       .get(
