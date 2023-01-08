@@ -1,0 +1,106 @@
+@import "../../styles/index";
+@import "../../styles/variables";
+
+.authForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  color: $gray;
+
+  input {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid $siberianBlue;
+    font-size: 20px;
+    outline: none;
+
+  &:focus{
+      background: $lightBlue;
+    }
+  }
+}
+
+.passwordField {
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid $siberianBlue;
+  position: relative;
+
+  ////////////////
+
+  /*&:focus-within {
+    img {
+      filter: sepia(1);
+    }
+  }*/
+
+  input {
+    padding: 12px 15px;
+    border: none;
+    background: none;
+    font-size: 20px;
+    width:100%;
+  }
+
+  input[type="password"] {
+    -webkit-text-security: square;
+  }
+
+  img{
+    right: 15px;
+    margin-top: 12px;
+    border: none;
+    background: transparent;
+    justify-content: end;
+    position: absolute;
+    cursor: pointer;
+  }
+}
+
+.textField {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.textField .errorMessage {
+  color: red;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  margin:40px 0px;
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: $fontBold;
+  margin-bottom: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top:40px;
+  margin-bottom: 60px;
+
+  button {
+    padding: 14px 20px;
+    border-radius: 10px;
+    color: #FAFAFA;
+    font-size: 20px;
+    font-weight: $fontNormal;
+    border: 1px solid;
+    background: $siberianBlue;
+    max-width:176px;
+    cursor: pointer;
+  }
+}

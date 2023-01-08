@@ -1,0 +1,32 @@
+.listVideo {
+  display: flex;
+  flex-direction: row;
+  width: 687px;
+  height: 88px;
+  gap:20px;
+}
+
+.listVideo .preview {
+  img {
+    width: 157px;
+    height: 88px;
+  }
+}
+
+.listVideo .info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #b4b4b4;
+}
+
+.listVideo .title {
+  color: black;
+}
+
+.listVideo .desc {
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+}
+
