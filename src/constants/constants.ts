@@ -8,8 +8,9 @@ export interface Video {
 }
 
 export interface FavoriteRequest {
+  id: string;
   name: string;
   request: string;
   sortBy: string;
-  maxCount: number;
+  maxResults: number;
 }

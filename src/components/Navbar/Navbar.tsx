@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
         <div className="rightMenu">
-          <div className="signOut" onClick={onSignOutClick}>
+          <div className="logOut" onClick={onSignOutClick}>
             Log out
           </div>
         </div>

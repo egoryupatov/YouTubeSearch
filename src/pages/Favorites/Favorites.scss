@@ -14,4 +14,15 @@
   padding: 14px 20px;
   font-weight: $fontBold;
   font-size: 16px;
+  color: #000000;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.favoriteErrorMessage {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }

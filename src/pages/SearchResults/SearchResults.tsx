@@ -3,7 +3,7 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import "./SearchResults.scss";
 import { GridVideo } from "../../components/VideoGrid/GridVideo";
 import { ListVideo } from "../../components/VideoList/ListVideo";
-import { APIKey, Video } from "../../constants/constants";
+import { APIKey, FavoriteRequest, Video } from "../../constants/constants";
 import {
   Results,
   selectSearchRequest,
@@ -15,6 +15,7 @@ import { apiTransform } from "../../api/apiTransform";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { Modal } from "../../components/Modal/Modal";
+import { useParams } from "react-router-dom";
 
 interface SearchResultsProps {
   searchResults: Results;
@@ -26,6 +27,9 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
   const [isGridViewEnabled, setIsGridViewEnabled] = useState(false);
   const dispatch = useDispatch();
   const searchRequest = useAppSelector(selectSearchRequest);
+  const params = useParams();
+
+  const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
   const onSearchClick = () => {
     axios

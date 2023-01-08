@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./Modal.scss";
 
 interface ModalProps {
@@ -7,9 +8,13 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
+  useEffect(() => {
+    setId(uuidv4());
+  }, []);
+  const [id, setId] = useState("");
   const [requestName, setRequestName] = useState("");
   const [sortBy, setSortBy] = useState("unsorted");
-  const [maxCount, setMaxCount] = useState(25);
+  const [maxResults, setMaxResults] = useState(25);
 
   const favorites = JSON.parse(localStorage.getItem("favorites")!);
 
@@ -21,18 +26,20 @@ export const Modal: React.FC<ModalProps> = (props) => {
           ? [
               ...favorites,
               {
+                id: id,
                 request: props.searchRequest,
                 name: requestName,
                 sortBy: sortBy,
-                maxCount: maxCount,
+                maxResults: maxResults,
               },
             ]
           : [
               {
+                id: id,
                 request: props.searchRequest,
                 name: requestName,
                 sortBy: sortBy,
-                maxCount: maxCount,
+                maxResults: maxResults,
               },
             ]
       )
@@ -89,11 +96,11 @@ export const Modal: React.FC<ModalProps> = (props) => {
                 defaultValue="25"
                 className="slider"
                 onChange={(event) => {
-                  setMaxCount(event.target.valueAsNumber);
+                  setMaxResults(event.target.valueAsNumber);
                 }}
               />
             </div>
-            <input className="numberOfResults" value={maxCount} />
+            <input className="numberOfResults" value={maxResults} />
           </div>
 
           <div className="modalButtonsGroup">
