@@ -5,6 +5,8 @@ export interface Video {
   title: string;
   channel: string;
   views: number;
+  videoId: string;
+  channelId: string;
 }
 
 export interface FavoriteRequest {

@@ -4,6 +4,10 @@
   width: 687px;
   height: 88px;
   gap:20px;
+
+  a {
+    color: black;
+  }
 }
 
 .listVideo .preview {
@@ -28,5 +32,9 @@
   display: flex;
   flex-direction: column;
   gap:5px;
+
+  a {
+    color: #b4b4b4;
+  }
 }
 

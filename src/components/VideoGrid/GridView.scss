@@ -7,6 +7,10 @@
   justify-content: left;
   width: 245px;
   margin-bottom: 28px;
+
+  a {
+    color: black;
+  }
 }
 
 .videoGrid .preview {
@@ -20,6 +24,9 @@
 .videoGrid .title {
   font-weight: $fontBold;
 }
-.videoGrid .info {
-  color: #b4b4b4;
+
+.videoGrid .desc {
+  a {
+    color: #b4b4b4;
+  }
 }

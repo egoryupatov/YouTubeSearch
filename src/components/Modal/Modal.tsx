@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Modal.scss";
+import { FavoriteRequest } from "../../constants/constants";
 
 interface ModalProps {
   setIsFavoritesModalActive: Dispatch<SetStateAction<boolean>>;
@@ -15,10 +16,22 @@ export const Modal: React.FC<ModalProps> = (props) => {
   const [requestName, setRequestName] = useState("");
   const [sortBy, setSortBy] = useState("unsorted");
   const [maxResults, setMaxResults] = useState(25);
+  const [isSaveRequestErrorDisplayed, setIsSaveRequestErrorDisplayed] =
+    useState(false);
 
   const favorites = JSON.parse(localStorage.getItem("favorites")!);
 
   const onSaveClick = () => {
+    if (
+      favorites.find(
+        (favoriteRequest: FavoriteRequest) =>
+          favoriteRequest.name === requestName
+      )
+    ) {
+      setIsSaveRequestErrorDisplayed(true);
+      return;
+    }
+
     localStorage.setItem(
       "favorites",
       JSON.stringify(
@@ -46,6 +59,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     );
 
     props.setIsFavoritesModalActive(false);
+    setIsSaveRequestErrorDisplayed(false);
   };
 
   return (
@@ -102,6 +116,12 @@ export const Modal: React.FC<ModalProps> = (props) => {
             </div>
             <input className="numberOfResults" value={maxResults} />
           </div>
+
+          {isSaveRequestErrorDisplayed ? (
+            <div className="errorMessage">
+              You already have a favorite request with that name!
+            </div>
+          ) : null}
 
           <div className="modalButtonsGroup">
             <div className="modalButtonWhite">

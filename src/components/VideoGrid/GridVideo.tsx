@@ -6,18 +6,34 @@ export const GridVideo: React.FC<Video> = (props) => {
   return (
     <div className="videoGrid">
       <div className="preview">
-        <img src={props.preview} />
+        <a
+          target="_blank"
+          href={`https://www.youtube.com/watch?v=${props.videoId}`}
+        >
+          {" "}
+          <img src={props.preview} />
+        </a>
       </div>
       <div className="title">
-        {props.title.length >= 56
-          ? props.title.slice(0, 56) + "..."
-          : props.title}
+        <a
+          target="_blank"
+          href={`https://www.youtube.com/watch?v=${props.videoId}`}
+        >
+          {props.title.length >= 56
+            ? props.title.slice(0, 56) + "..."
+            : props.title}
+        </a>
       </div>
       <div className="desc">
         <div>
-          {props.channel.length >= 27
-            ? props.channel.slice(0, 27) + "..."
-            : props.channel}
+          <a
+            target="_blank"
+            href={`https://www.youtube.com/channel/${props.channelId}`}
+          >
+            {props.channel.length >= 27
+              ? props.channel.slice(0, 27) + "..."
+              : props.channel}
+          </a>
         </div>
         <div>{props.views}</div>
       </div>

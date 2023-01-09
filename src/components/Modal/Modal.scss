@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   width: 510px;
-  height: 573px;
+  height:auto;
+  /*height: 573px;*/
   border-radius: 10px;
   padding: 36px 40px;
   background: #FFFFFF;
@@ -28,7 +29,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 36px 0px;
+  margin-top: 36px;
 }
 
 .modalInputContainer {
@@ -121,13 +122,13 @@
   display: flex;
   width: 100%;
   gap: 10px;
+  margin-top: 36px;
 }
 
 .modalButtonBlue {
   display: flex;
   justify-content: center;
-  margin-top:40px;
-  margin-bottom: 60px;
+  height: 52px;
   width: 100%;
 
   button {
@@ -146,8 +147,7 @@
 .modalButtonWhite {
   display: flex;
   justify-content: center;
-  margin-top:40px;
-  margin-bottom: 60px;
+  height: 52px;
   width: 100%;
 
   button {
@@ -161,4 +161,12 @@
     cursor: pointer;
     width: 100%;
   }
+}
+
+.errorMessage {
+  display: flex;
+  padding: 10px 0px;
+  align-items: center;
+  justify-content: center;
+  color: red;
 }

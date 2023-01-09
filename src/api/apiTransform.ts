@@ -10,6 +10,8 @@ export const apiTransform = (answer: any) => {
       title: searchResult.snippet.title,
       channel: searchResult.snippet.channelTitle,
       views: 0,
+      videoId: searchResult.id.videoId,
+      channelId: searchResult.snippet.channelId,
     };
 
     videos.push(video);

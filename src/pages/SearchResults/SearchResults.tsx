@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import "./SearchResults.scss";
 import { GridVideo } from "../../components/VideoGrid/GridVideo";
@@ -25,6 +25,9 @@ export const SearchResults: React.FC = () => {
   const searchRequest = useAppSelector(selectSearchRequest);
   const searchResults = useAppSelector(selectSearchResults);
   const params = useParams();
+
+  // не очень
+  const searchResultsFor = useRef(searchRequest);
 
   const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
@@ -65,7 +68,7 @@ export const SearchResults: React.FC = () => {
 
         <div className="searchResultsToolBar">
           <div className="searchResultsInfo">
-            <div>Search results for "{searchRequest}"</div>
+            <div>Search results for "{searchResultsFor.current}"</div>
             <div className="numberOfSearchResults">{searchResults.count}</div>
           </div>
           <div className="searchResultsView">
@@ -88,6 +91,8 @@ export const SearchResults: React.FC = () => {
                 title={video.title}
                 channel={video.channel}
                 views={video.views}
+                videoId={video.videoId}
+                channelId={video.channelId}
               />
             ))}
           </div>
@@ -99,6 +104,8 @@ export const SearchResults: React.FC = () => {
                 title={video.title}
                 channel={video.channel}
                 views={video.views}
+                videoId={video.videoId}
+                channelId={video.channelId}
               />
             ))}
           </div>
