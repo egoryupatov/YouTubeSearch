@@ -9,8 +9,9 @@ export const ListVideo: React.FC<Video> = (props) => {
         <a
           target="_blank"
           href={`https://www.youtube.com/watch?v=${props.videoId}`}
+          rel="noreferrer"
         >
-          <img src={props.preview} />
+          <img src={props.preview} alt="" />
         </a>
       </div>
       <div className="info">
@@ -19,6 +20,7 @@ export const ListVideo: React.FC<Video> = (props) => {
           <a
             target="_blank"
             href={`https://www.youtube.com/watch?v=${props.videoId}`}
+            rel="noreferrer"
           >
             {props.title}
           </a>
@@ -28,6 +30,7 @@ export const ListVideo: React.FC<Video> = (props) => {
             <a
               target="_blank"
               href={`https://www.youtube.com/channel/${props.channelId}`}
+              rel="noreferrer"
             >
               {props.channel}
             </a>

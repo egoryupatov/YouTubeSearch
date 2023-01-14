@@ -16,3 +16,32 @@ export interface FavoriteRequest {
   sortBy: string;
   maxResults: number;
 }
+
+/*export interface SearchResult {
+  snippet: Snippet;
+  statistics: Statistics;
+  id: {
+    videoId: string;
+  };
+}
+
+interface Snippet {
+  preview: string;
+  title: string;
+  channelTitle: string;
+  channel: string;
+  views: number;
+  channelId: string;
+  thumbnails: {
+    medium: {
+      url: string;
+    };
+  };
+}
+
+interface Statistics {
+  viewCount: string;
+  likeCount: string;
+  favoriteCount: string;
+  commentCount: string;
+}*/

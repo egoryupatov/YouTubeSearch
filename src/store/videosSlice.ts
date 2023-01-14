@@ -10,6 +10,8 @@ export interface Results {
 interface UserState {
   searchResults: Results;
   searchRequest: string;
+  searchResultsForRequest: string;
+  isFavoritesNotificationDisplayed: boolean;
 }
 
 const initialState: UserState = {
@@ -18,6 +20,8 @@ const initialState: UserState = {
     count: 0,
   },
   searchRequest: "",
+  searchResultsForRequest: "",
+  isFavoritesNotificationDisplayed: false,
 };
 
 export const videosSlice = createSlice({
@@ -30,15 +34,32 @@ export const videosSlice = createSlice({
     setSearchRequest: (state, action) => {
       state.searchRequest = action.payload;
     },
+    setSearchResultsForRequest: (state, action) => {
+      state.searchResultsForRequest = action.payload;
+    },
+    setIsFavoritesNotificationDisplayed: (state, action) => {
+      state.isFavoritesNotificationDisplayed = action.payload;
+    },
   },
 });
 
-export const { setSearchResults, setSearchRequest } = videosSlice.actions;
+export const {
+  setSearchResults,
+  setSearchRequest,
+  setIsFavoritesNotificationDisplayed,
+  setSearchResultsForRequest,
+} = videosSlice.actions;
 
 export const selectSearchResults = (state: RootState) =>
   state.videos.searchResults;
 
 export const selectSearchRequest = (state: RootState) =>
   state.videos.searchRequest;
+
+export const searchResultsForRequest = (state: RootState) =>
+  state.videos.searchResultsForRequest;
+
+export const selectIsFavoritesNotificationDisplayed = (state: RootState) =>
+  state.videos.isFavoritesNotificationDisplayed;
 
 export default videosSlice.reducer;

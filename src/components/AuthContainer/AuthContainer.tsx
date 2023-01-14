@@ -5,7 +5,7 @@ export const AuthContainer: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.token) {
+    if (!localStorage.getItem("token")) {
       navigate("/");
     }
   }, []);

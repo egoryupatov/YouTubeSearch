@@ -2,10 +2,11 @@ import React from "react";
 import "./Navbar.scss";
 import { Link, useNavigate } from "react-router-dom";
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC = (props) => {
   const navigate = useNavigate();
+
   const onSignOutClick = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -13,8 +14,8 @@ export const Navbar: React.FC = () => {
     <div className="navbar">
       <div className="navbarContainer">
         <div className="leftMenu">
-          <Link to="/">
-            <img className="navbarLogo" src="/images/logo.svg" />
+          <Link to="/search">
+            <img className="navbarLogo" src="/images/logo.svg" alt="" />
           </Link>
           <Link to="/search">
             <div>Search</div>

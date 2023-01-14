@@ -1,18 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import "./Favorites.scss";
 import { APIKey, FavoriteRequest } from "../../constants/constants";
 import axios from "axios";
-import {
-  selectSearchRequest,
-  selectSearchResults,
-  setSearchRequest,
-  setSearchResults,
-} from "../../store/videosSlice";
+import { setSearchRequest, setSearchResults } from "../../store/videosSlice";
 import { apiTransform } from "../../api/apiTransform";
 import { useDispatch } from "react-redux";
-import { SearchResults } from "../SearchResults/SearchResults";
-import { useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 
 export const Favorites: React.FC = () => {
@@ -40,7 +33,7 @@ export const Favorites: React.FC = () => {
         <div className="favoritesContainer ">
           {favoriteRequests ? (
             favoriteRequests.map((request: FavoriteRequest) => (
-              <div className="favoriteRequest">
+              <div className="favoriteRequest" key={request.name}>
                 <span onClick={() => onFavoritesClick(request)}>
                   {request.name}
                 </span>

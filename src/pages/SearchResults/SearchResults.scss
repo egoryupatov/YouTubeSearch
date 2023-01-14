@@ -65,3 +65,12 @@
   gap:32px;
   width: 100%;
 }
+
+.heartContainer {
+  display: flex;
+  align-items: center;
+
+  img {
+    position: relative;
+  }
+}

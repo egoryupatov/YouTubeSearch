@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { createRef, useState } from "react";
 import "./AuthForm.scss";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export const AuthForm: React.FC = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -8,27 +9,23 @@ export const AuthForm: React.FC = () => {
   const navigate = useNavigate();
   let users = require("../../users.json");
 
+  const ref = createRef<HTMLInputElement>();
+
   const [userData, setUserData] = useState({
     username: "",
     password: "",
   });
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/search");
-    }
-  }, []);
-
   const onPasswordVisibilityChange = () => {
     setIsPasswordVisible((prevState) => !prevState);
   };
   const onSignInClick = () => {
-    users.map((user: any) => {
+    users.forEach((user: any) => {
       if (
         user.username === userData.username &&
         user.password === userData.password
       ) {
-        localStorage.setItem("token", "superToken");
+        localStorage.setItem("token", `${uuidv4()}`);
         localStorage.setItem("username", `${userData.username}`);
         navigate("/search");
       } else {
@@ -37,11 +34,15 @@ export const AuthForm: React.FC = () => {
     });
   };
 
+  /*  useEffect(() => {
+    console.log(ref.current.hasFocus());
+  }, [isPasswordVisible]);*/
+
   return (
     <div className="formContainer">
       <div className="authForm">
         <div className="logoContainer">
-          <img src="/images/logo.svg" />
+          <img src="/images/logo.svg" alt="" />
         </div>
         <div className="textContainer">Sign in</div>
         <div className="inputContainer">
@@ -59,6 +60,7 @@ export const AuthForm: React.FC = () => {
             <div className="passwordField">
               <input
                 type={isPasswordVisible ? "text" : "password"}
+                ref={ref}
                 onChange={(event) =>
                   setUserData({ ...userData, password: event.target.value })
                 }
@@ -68,11 +70,13 @@ export const AuthForm: React.FC = () => {
                 <img
                   onClick={onPasswordVisibilityChange}
                   src="/images/eye-on-blue.svg"
+                  alt=""
                 />
               ) : (
                 <img
                   onClick={onPasswordVisibilityChange}
                   src="/images/eye-off-blue.svg"
+                  alt=""
                 />
               )}
             </div>

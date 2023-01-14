@@ -1,7 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./Modal.scss";
-import { FavoriteRequest } from "../../constants/constants";
+import { useDispatch } from "react-redux";
+import { setIsFavoritesNotificationDisplayed } from "../../store/videosSlice";
 
 interface ModalProps {
   setIsFavoritesModalActive: Dispatch<SetStateAction<boolean>>;
@@ -9,6 +10,7 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     setId(uuidv4());
   }, []);
@@ -22,7 +24,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   const favorites = JSON.parse(localStorage.getItem("favorites")!);
 
   const onSaveClick = () => {
-    if (
+    /*    if (
       favorites.find(
         (favoriteRequest: FavoriteRequest) =>
           favoriteRequest.name === requestName
@@ -30,7 +32,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     ) {
       setIsSaveRequestErrorDisplayed(true);
       return;
-    }
+    }*/
 
     localStorage.setItem(
       "favorites",
@@ -59,6 +61,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     );
 
     props.setIsFavoritesModalActive(false);
+    dispatch(setIsFavoritesNotificationDisplayed(true));
     setIsSaveRequestErrorDisplayed(false);
   };
 

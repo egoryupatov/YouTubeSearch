@@ -8,15 +8,17 @@ export const GridVideo: React.FC<Video> = (props) => {
       <div className="preview">
         <a
           target="_blank"
+          rel="noreferrer"
           href={`https://www.youtube.com/watch?v=${props.videoId}`}
         >
           {" "}
-          <img src={props.preview} />
+          <img src={props.preview} alt="" />
         </a>
       </div>
       <div className="title">
         <a
           target="_blank"
+          rel="noreferrer"
           href={`https://www.youtube.com/watch?v=${props.videoId}`}
         >
           {props.title.length >= 56
@@ -28,6 +30,7 @@ export const GridVideo: React.FC<Video> = (props) => {
         <div>
           <a
             target="_blank"
+            rel="noreferrer"
             href={`https://www.youtube.com/channel/${props.channelId}`}
           >
             {props.channel.length >= 27
