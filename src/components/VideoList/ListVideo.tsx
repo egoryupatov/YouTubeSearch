@@ -1,6 +1,7 @@
 import React from "react";
 import { Video } from "../../constants/constants";
 import "./ListView.scss";
+import { countViews } from "../../utils/countViews";
 
 export const ListVideo: React.FC<Video> = (props) => {
   return (
@@ -35,7 +36,7 @@ export const ListVideo: React.FC<Video> = (props) => {
               {props.channel}
             </a>
           </div>
-          <div>{props.views}</div>
+          <div>{countViews(Number(props.views))}</div>
         </div>
       </div>
     </div>

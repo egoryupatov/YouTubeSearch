@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import "./Favorites.scss";
 import { APIKey, FavoriteRequest } from "../../constants/constants";
@@ -11,9 +11,12 @@ import { useNavigate } from "react-router-dom";
 export const Favorites: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
-  const onFavoritesClick = (request: FavoriteRequest) => {
+  const [favorites, setFavorites] = useState(
+    JSON.parse(localStorage.getItem("favorites")!)
+  );
+
+  const onRequestClick = (request: FavoriteRequest) => {
     axios
       .get(
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${request.maxResults}&order=${request.sortBy}&q=${request.request}&key=${APIKey}`
@@ -25,18 +28,30 @@ export const Favorites: React.FC = () => {
       });
   };
 
+  const onDeleteRequestClick = (requestName: string) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")!).filter(
+      (request: any) => request.name !== requestName
+    );
+    setFavorites(favorites);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  };
+
   return (
     <div className="searchResultsPageContainer">
       <Navbar />
       <div className="searchResultsContainer">
         <div className="searchResultsTitle">Favorites</div>
         <div className="favoritesContainer ">
-          {favoriteRequests ? (
-            favoriteRequests.map((request: FavoriteRequest) => (
+          {favorites && favorites.length > 0 ? (
+            favorites.map((request: FavoriteRequest) => (
               <div className="favoriteRequest" key={request.name}>
-                <span onClick={() => onFavoritesClick(request)}>
+                <span onClick={() => onRequestClick(request)}>
                   {request.name}
                 </span>
+                <img
+                  src={"/images/delete.svg"}
+                  onClick={() => onDeleteRequestClick(request.name)}
+                />
               </div>
             ))
           ) : (

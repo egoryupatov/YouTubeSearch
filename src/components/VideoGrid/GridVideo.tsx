@@ -1,6 +1,7 @@
 import React from "react";
 import "./GridView.scss";
 import { Video } from "../../constants/constants";
+import { countViews } from "../../utils/countViews";
 
 export const GridVideo: React.FC<Video> = (props) => {
   return (
@@ -38,7 +39,7 @@ export const GridVideo: React.FC<Video> = (props) => {
               : props.channel}
           </a>
         </div>
-        <div>{props.views}</div>
+        <div>{countViews(Number(props.views))}</div>
       </div>
     </div>
   );

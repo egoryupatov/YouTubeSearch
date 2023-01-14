@@ -3,7 +3,7 @@
 .videoGrid {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
   justify-content: left;
   width: 245px;
   margin-bottom: 28px;
@@ -26,6 +26,11 @@
 }
 
 .videoGrid .desc {
+  display: flex;
+  flex-direction: column;
+  color: #b4b4b4;
+  gap:5px;
+
   a {
     color: #b4b4b4;
   }

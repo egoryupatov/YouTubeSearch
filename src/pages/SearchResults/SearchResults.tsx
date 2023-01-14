@@ -9,6 +9,7 @@ import {
   selectIsFavoritesNotificationDisplayed,
   selectSearchRequest,
   selectSearchResults,
+  setSearchRequest,
   setSearchResults,
   setSearchResultsForRequest,
 } from "../../store/videosSlice";
@@ -36,10 +37,18 @@ export const SearchResults: React.FC = () => {
 
   const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
-  const onSearchClick = () => {
-    axios
+  const onSearchClick = async () => {
+    const searchForKeywordResults = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${newSearchRequest}&key=${APIKey}`
+    );
+
+    const videoIDs = searchForKeywordResults.data.items
+      .map((item: any) => item.id.videoId)
+      .join("%2C");
+
+    await axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${newSearchRequest}&key=${APIKey}`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
       )
       .then((response) => {
         dispatch(setSearchResults(apiTransform(response)));
