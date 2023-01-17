@@ -1,43 +1,21 @@
-import React, { createRef, useState } from "react";
-import "./AuthForm.scss";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import React, { Dispatch, Ref, SetStateAction } from "react";
 
-export const AuthForm: React.FC = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isErrorMessageVisible, setIsErrorMessageVisible] = useState(false);
-  const navigate = useNavigate();
-  let users = require("../../users.json");
+export interface UserData {
+  username: string;
+  password: string;
+}
 
-  const ref = createRef<HTMLInputElement>();
+interface AuthFormProps {
+  setUserData: Dispatch<SetStateAction<{ username: string; password: string }>>;
+  userData: UserData;
+  isPasswordVisible: boolean;
+  isErrorMessageVisible: boolean;
+  ref: Ref<HTMLInputElement>;
+  onPasswordVisibilityChange: () => void;
+  onSignInClick: () => void;
+}
 
-  const [userData, setUserData] = useState({
-    username: "",
-    password: "",
-  });
-
-  const onPasswordVisibilityChange = () => {
-    setIsPasswordVisible((prevState) => !prevState);
-  };
-  const onSignInClick = () => {
-    users.forEach((user: any) => {
-      if (
-        user.username === userData.username &&
-        user.password === userData.password
-      ) {
-        localStorage.setItem("token", `${uuidv4()}`);
-        localStorage.setItem("username", `${userData.username}`);
-        navigate("/search");
-      } else {
-        setIsErrorMessageVisible(true);
-      }
-    });
-  };
-
-  /*  useEffect(() => {
-    console.log(ref.current.hasFocus());
-  }, [isPasswordVisible]);*/
-
+export const AuthForm: React.FC<AuthFormProps> = (props) => {
   return (
     <div className="formContainer">
       <div className="authForm">
@@ -51,7 +29,10 @@ export const AuthForm: React.FC = () => {
             <input
               type="text"
               onChange={(event) =>
-                setUserData({ ...userData, username: event.target.value })
+                props.setUserData({
+                  ...props.userData,
+                  username: event.target.value,
+                })
               }
             />
           </div>
@@ -59,29 +40,32 @@ export const AuthForm: React.FC = () => {
             <label>Password</label>
             <div className="passwordField">
               <input
-                type={isPasswordVisible ? "text" : "password"}
-                ref={ref}
+                type={props.isPasswordVisible ? "text" : "password"}
+                ref={props.ref}
                 onChange={(event) =>
-                  setUserData({ ...userData, password: event.target.value })
+                  props.setUserData({
+                    ...props.userData,
+                    password: event.target.value,
+                  })
                 }
               />
 
-              {isPasswordVisible ? (
+              {props.isPasswordVisible ? (
                 <img
-                  onClick={onPasswordVisibilityChange}
+                  onClick={props.onPasswordVisibilityChange}
                   src="/images/eye-on-blue.svg"
                   alt=""
                 />
               ) : (
                 <img
-                  onClick={onPasswordVisibilityChange}
+                  onClick={props.onPasswordVisibilityChange}
                   src="/images/eye-off-blue.svg"
                   alt=""
                 />
               )}
             </div>
           </div>
-          {isErrorMessageVisible ? (
+          {props.isErrorMessageVisible ? (
             <div className="textField">
               <div className="errorMessage">
                 There is no such user, try again!
@@ -90,7 +74,7 @@ export const AuthForm: React.FC = () => {
           ) : null}
         </div>
         <div className="buttonContainer">
-          <button onClick={onSignInClick}>Sign in</button>
+          <button onClick={props.onSignInClick}>Sign in</button>
         </div>
       </div>
     </div>

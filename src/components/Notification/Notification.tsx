@@ -8,6 +8,8 @@ import { setIsFavoritesNotificationDisplayed } from "../../store/videosSlice";
 export const Notification: React.FC = () => {
   const dispatch = useDispatch();
 
+  //сделать чтобы по клику закрывалось окно
+
   return (
     <OutsideClickHandler
       onOutsideClick={() => {

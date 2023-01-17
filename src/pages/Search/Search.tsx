@@ -29,16 +29,14 @@ export const Search: React.FC = () => {
       .map((item: any) => item.id.videoId)
       .join("%2C");
 
-    await axios
-      .get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
-      )
-      .then((response) => {
-        dispatch(setSearchResults(apiTransform(response)));
-        dispatch(setSearchRequest(searchRequest));
-        dispatch(setSearchResultsForRequest(searchRequest));
-        navigate("/results");
-      });
+    const detailedSearchResults = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
+    );
+
+    dispatch(setSearchResults(apiTransform(detailedSearchResults)));
+    dispatch(setSearchRequest(searchRequest));
+    dispatch(setSearchResultsForRequest(searchRequest));
+    navigate("/results");
   };
 
   return (

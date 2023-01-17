@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./Modal.scss";
 import { useDispatch } from "react-redux";
 import { setIsFavoritesNotificationDisplayed } from "../../store/videosSlice";
+import { FavoriteRequest } from "../../constants/constants";
 
 interface ModalProps {
   setIsFavoritesModalActive: Dispatch<SetStateAction<boolean>>;
@@ -18,21 +19,28 @@ export const Modal: React.FC<ModalProps> = (props) => {
   const [requestName, setRequestName] = useState("");
   const [sortBy, setSortBy] = useState("unsorted");
   const [maxResults, setMaxResults] = useState(25);
-  const [isSaveRequestErrorDisplayed, setIsSaveRequestErrorDisplayed] =
-    useState(false);
+  const [errors, setErrors] = useState({
+    emptyName: false,
+    existingName: false,
+  });
 
   const favorites = JSON.parse(localStorage.getItem("favorites")!);
 
   const onSaveClick = () => {
-    /*    if (
+    if (
+      favorites &&
       favorites.find(
         (favoriteRequest: FavoriteRequest) =>
           favoriteRequest.name === requestName
       )
     ) {
-      setIsSaveRequestErrorDisplayed(true);
+      setErrors({ ...errors, existingName: true });
       return;
-    }*/
+    }
+    if (!requestName) {
+      setErrors({ ...errors, emptyName: true });
+      return;
+    }
 
     localStorage.setItem(
       "favorites",
@@ -62,7 +70,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
     props.setIsFavoritesModalActive(false);
     dispatch(setIsFavoritesNotificationDisplayed(true));
-    setIsSaveRequestErrorDisplayed(false);
+    setErrors({ emptyName: false, existingName: false });
   };
 
   return (
@@ -120,9 +128,15 @@ export const Modal: React.FC<ModalProps> = (props) => {
             <input className="numberOfResults" value={maxResults} />
           </div>
 
-          {isSaveRequestErrorDisplayed ? (
+          {errors.existingName ? (
             <div className="errorMessage">
-              You already have a favorite request with that name!
+              You already have a favorite search request with that name!
+            </div>
+          ) : null}
+
+          {errors.emptyName ? (
+            <div className="errorMessage">
+              The "Name" field can not be empty!
             </div>
           ) : null}
 
