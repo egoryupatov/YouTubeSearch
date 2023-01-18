@@ -1,4 +1,4 @@
-Hello! This is one of the simple applications I developed as a part of test assignment. 
+Hello! This is one of the simple applications I developed a test assignment. 
 
 Please keep in mind that while working on test assignment I strictly follow the app requirements 
 
