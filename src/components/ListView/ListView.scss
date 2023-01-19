@@ -3,11 +3,12 @@
 .listVideo {
   display: flex;
   flex-direction: row;
-  width: 687px;
+  /*width: 687px;*/
+  width: 100%;
   height: 88px;
   gap:20px;
 
-  @media screen and (min-width: 320px) {
+  @media (max-width: 375px) {
     width: 100%;
   }
 
@@ -82,7 +83,7 @@
 .listVideo .title {
   color: black;
 
-  @media screen and (min-width: 320px) {
+  @media (max-width: 375px) {
     font-size: 14px;
   }
 }
@@ -92,7 +93,7 @@
   flex-direction: column;
   gap:5px;
 
-  @media screen and (min-width: 320px) {
+  @media (max-width: 375px) {
     font-size: 14px;
   }
 

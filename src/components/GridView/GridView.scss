@@ -8,7 +8,7 @@
   width: 245px;
   margin-bottom: 28px;
 
-  @media screen and (min-width: 768px) {
+  @media (max-width: 768px) {
     width: 216px;
   }
 
@@ -27,7 +27,7 @@
     border: 1px solid $siberianBlue;
     border-radius: 10px;
 
-    @media screen and (min-width: 768px) {
+    @media (max-width: 768px) {
       width: 216px;
     }
   }
