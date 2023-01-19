@@ -3,7 +3,7 @@ import "./GridView.scss";
 import { Video } from "../../constants/constants";
 import { countViews } from "../../utils/countViews";
 
-export const GridVideo: React.FC<Video> = (props) => {
+export const GridView: React.FC<Video> = (props) => {
   return (
     <div className="videoGrid">
       <div className="preview">
@@ -12,8 +12,11 @@ export const GridVideo: React.FC<Video> = (props) => {
           rel="noreferrer"
           href={`https://www.youtube.com/watch?v=${props.videoId}`}
         >
-          {" "}
+          <div className="tooltipLeft" />
+
           <img src={props.preview} alt="" />
+
+          <div className="tooltipRight" />
         </a>
       </div>
       <div className="title">

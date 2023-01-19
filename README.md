@@ -14,6 +14,7 @@ App requirements:
 2) Authorization through json file, token and local storage
 3) The list and grid views of search results
 4) The "Favorite requests" feature
+5) The app should have adaptive and responsive design
 
 ## How to run the app
 

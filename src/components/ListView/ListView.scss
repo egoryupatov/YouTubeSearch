@@ -1,0 +1,103 @@
+@import "../../styles/variables";
+
+.listVideo {
+  display: flex;
+  flex-direction: row;
+  width: 687px;
+  height: 88px;
+  gap:20px;
+
+  @media screen and (min-width: 320px) {
+    width: 100%;
+  }
+
+  a {
+    color: black;
+  }
+}
+
+.listVideo .preview {
+
+  position: relative;
+
+  img {
+    width: 157px;
+    height: 88px;
+    border: 1px solid $siberianBlue;
+    border-radius: 10px;
+  }
+}
+
+.listVideo .tooltipLeft {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 50%;
+  left:0;
+  transform: rotate(-90deg);
+  border: 7px solid;
+  border-color: $siberianBlue transparent transparent transparent;
+}
+
+.listVideo .tooltipLeft:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -7px;
+  left:-6px;
+  border: 6px solid;
+  border-color: #fafafa transparent transparent transparent;
+}
+
+.listVideo .tooltipRight {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 50%;
+  right:0;
+  transform: rotate(90deg);
+  border: 7px solid;
+  border-color: $siberianBlue transparent transparent transparent;
+}
+
+.listVideo .tooltipRight:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -7px;
+  left:-6px;
+  border: 6px solid;
+  border-color: #fafafa transparent transparent transparent;
+}
+
+.listVideo .info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #b4b4b4;
+}
+
+.listVideo .title {
+  color: black;
+
+  @media screen and (min-width: 320px) {
+    font-size: 14px;
+  }
+}
+
+.listVideo .desc {
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+
+  @media screen and (min-width: 320px) {
+    font-size: 14px;
+  }
+
+  a {
+    color: #b4b4b4;
+  }
+}
+

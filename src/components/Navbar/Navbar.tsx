@@ -1,15 +1,11 @@
 import React from "react";
-import "./Navbar.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-export const Navbar: React.FC = (props) => {
-  const navigate = useNavigate();
+interface NavbarProps {
+  onSignOutClick: () => void;
+}
 
-  const onSignOutClick = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
-
+export const Navbar: React.FC<NavbarProps> = (props) => {
   return (
     <div className="navbar">
       <div className="navbarContainer">
@@ -17,15 +13,27 @@ export const Navbar: React.FC = (props) => {
           <Link to="/search">
             <img className="navbarLogo" src="/images/logo.svg" alt="" />
           </Link>
-          <Link to="/search">
-            <div>Search</div>
-          </Link>
-          <Link to="/favorites">
-            <div>Favorites</div>
-          </Link>
+
+          <div>
+            <NavLink
+              to="/search"
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+            >
+              Search
+            </NavLink>
+          </div>
+
+          <div>
+            <NavLink
+              to="/favorites"
+              className={({ isActive }) => (isActive ? "active" : "inactive")}
+            >
+              Favorites{" "}
+            </NavLink>
+          </div>
         </div>
         <div className="rightMenu">
-          <div className="logOut" onClick={onSignOutClick}>
+          <div className="logOut" onClick={props.onSignOutClick}>
             Log out
           </div>
         </div>

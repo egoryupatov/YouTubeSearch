@@ -1,0 +1,93 @@
+@import "../../styles/variables";
+
+.videoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: left;
+  width: 245px;
+  margin-bottom: 28px;
+
+  @media screen and (min-width: 768px) {
+    width: 216px;
+  }
+
+  a {
+    color: black;
+  }
+}
+
+.videoGrid .preview {
+
+  position: relative;
+
+  img {
+    width: 245px;
+    height: 137px;
+    border: 1px solid $siberianBlue;
+    border-radius: 10px;
+
+    @media screen and (min-width: 768px) {
+      width: 216px;
+    }
+  }
+}
+
+.videoGrid .tooltipLeft {
+  width: 0;
+  height: 0;
+  top: 50%;
+  position: absolute;
+  transform: rotate(-90deg);
+  left: 0;
+  border: 7px solid;
+  border-color: $siberianBlue transparent transparent transparent;
+}
+
+.videoGrid .tooltipLeft:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -7px;
+  left:-6px;
+  border: 6px solid;
+  border-color: #fafafa transparent transparent transparent;
+}
+
+.videoGrid .tooltipRight {
+  width: 0;
+  height: 0;
+  top: 50%;
+  position: absolute;
+  transform: rotate(90deg);
+  right: 0;
+  border: 7px solid;
+  border-color: $siberianBlue transparent transparent transparent;
+}
+
+.videoGrid .tooltipRight:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -7px;
+  left:-6px;
+  border: 6px solid;
+  border-color: #fafafa transparent transparent transparent;
+}
+
+.videoGrid .title {
+  font-weight: $fontBold;
+}
+
+.videoGrid .desc {
+  display: flex;
+  flex-direction: column;
+  color: #b4b4b4;
+  gap:5px;
+
+  a {
+    color: #b4b4b4;
+  }
+}

@@ -1,68 +1,38 @@
-import React, { useState } from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
-import "./SearchResults.scss";
-import { GridVideo } from "../../components/VideoGrid/GridVideo";
-import { ListVideo } from "../../components/VideoList/ListVideo";
-import { APIKey } from "../../constants/constants";
-import {
-  searchResultsForRequest,
-  selectIsFavoritesNotificationDisplayed,
-  selectSearchRequest,
-  selectSearchResults,
-  setSearchRequest,
-  setSearchResults,
-  setSearchResultsForRequest,
-} from "../../store/videosSlice";
-import axios from "axios";
-import { apiTransform } from "../../api/apiTransform";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store/hooks";
-import { Modal } from "../../components/Modal/Modal";
-import { Notification } from "../../components/Notification/Notification";
+import React from "react";
+import { NavbarContainer } from "../../components/Navbar/NavbarContainer";
+import { FavoritesFormContainer } from "../../components/FavoritesForm/FavoritesFormContainer";
+import { FavoritesNotification } from "../../components/FavoritesNotification/FavoritesNotification";
+import { GridView } from "../../components/GridView/GridView";
+import { ListView } from "../../components/ListView/ListView";
+import { Results } from "../../store/videosSlice";
+import { Video } from "../../constants/constants";
 
-export const SearchResults: React.FC = () => {
-  const dispatch = useDispatch();
+interface SearchResultsProps {
+  isFavoritesModalActive: boolean;
+  setIsFavoritesModalActive: React.Dispatch<React.SetStateAction<boolean>>;
+  newSearchRequest: string;
+  searchRequest: string;
+  setNewSearchRequest: (newSearchRequest: string) => void;
+  onSearchClick: () => void;
+  isFavoritesNotificationDisplayed: boolean;
+  searchResultsFor: string;
+  searchResults: Results;
+  isGridViewEnabled: boolean;
+  setIsGridViewEnabled: (isGridViewEnabled: boolean) => void;
+}
 
-  const [newSearchRequest, setNewSearchRequest] = useState<string>("");
-  const [isFavoritesModalActive, setIsFavoritesModalActive] =
-    useState<boolean>(false);
-  const [isGridViewEnabled, setIsGridViewEnabled] = useState<boolean>(false);
-
-  const searchRequest = useAppSelector(selectSearchRequest);
-  const searchResults = useAppSelector(selectSearchResults);
-  const searchResultsFor = useAppSelector(searchResultsForRequest);
-  const isFavoritesNotificationDisplayed = useAppSelector(
-    selectIsFavoritesNotificationDisplayed
-  );
-
-  const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
-
-  const onSearchClick = async () => {
-    const searchForKeywordResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${newSearchRequest}&key=${APIKey}`
-    );
-
-    const videoIDs = searchForKeywordResults.data.items
-      .map((item: any) => item.id.videoId)
-      .join("%2C");
-
-    const detailedSearchResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
-    );
-
-    dispatch(setSearchResults(apiTransform(detailedSearchResults)));
-    dispatch(setSearchResultsForRequest(newSearchRequest));
-  };
-
+export const SearchResults: React.FC<SearchResultsProps> = (props) => {
   return (
     <div className="searchResultsPageContainer">
-      <Navbar />
+      <NavbarContainer />
 
-      {isFavoritesModalActive ? (
-        <Modal
-          setIsFavoritesModalActive={setIsFavoritesModalActive}
+      {props.isFavoritesModalActive ? (
+        <FavoritesFormContainer
+          setIsFavoritesModalActive={props.setIsFavoritesModalActive}
           searchRequest={
-            newSearchRequest.length >= 1 ? newSearchRequest : searchRequest
+            props.newSearchRequest.length >= 1
+              ? props.newSearchRequest
+              : props.searchRequest
           }
         />
       ) : null}
@@ -72,50 +42,62 @@ export const SearchResults: React.FC = () => {
         <div className="searchForm">
           <input
             type="text"
-            defaultValue={searchRequest}
-            onChange={(event) => setNewSearchRequest(event.target.value)}
+            defaultValue={props.searchRequest}
+            onChange={(event) => props.setNewSearchRequest(event.target.value)}
             onKeyDown={(event) =>
-              event.key === "Enter" ? onSearchClick() : null
+              event.key === "Enter" ? props.onSearchClick() : null
             }
           />
           <div className="heartContainer">
             <img
               src={
-                isFavoritesNotificationDisplayed
+                props.isFavoritesNotificationDisplayed
                   ? "/images/heart-blue.svg"
                   : "/images/heart.svg"
               }
               alt=""
-              onClick={() => setIsFavoritesModalActive(true)}
+              onClick={() => props.setIsFavoritesModalActive(true)}
             />
-            {isFavoritesNotificationDisplayed ? <Notification /> : null}
+            {props.isFavoritesNotificationDisplayed ? (
+              <FavoritesNotification />
+            ) : null}
           </div>
-          <button onClick={onSearchClick}>Search</button>
+          <button onClick={props.onSearchClick}>Search</button>
         </div>
 
         <div className="searchResultsToolBar">
           <div className="searchResultsInfo">
-            <div>Search results for "{searchResultsFor}"</div>
-            <div className="numberOfSearchResults">{searchResults.count}</div>
+            <div>Search results for "{props.searchResultsFor}"</div>
+            <div className="numberOfSearchResults">
+              {props.searchResults.count}
+            </div>
           </div>
           <div className="searchResultsView">
             <img
-              onClick={() => setIsGridViewEnabled(false)}
-              src="/images/list.svg"
+              onClick={() => props.setIsGridViewEnabled(false)}
+              src={
+                props.isGridViewEnabled
+                  ? "/images/list.svg"
+                  : "/images/list-black.svg"
+              }
               alt=""
             />
             <img
-              onClick={() => setIsGridViewEnabled(true)}
-              src="/images/grid.svg"
+              onClick={() => props.setIsGridViewEnabled(true)}
+              src={
+                props.isGridViewEnabled
+                  ? "/images/grid-black.svg"
+                  : "/images/grid.svg"
+              }
               alt=""
             />
           </div>
         </div>
 
-        {isGridViewEnabled ? (
+        {props.isGridViewEnabled ? (
           <div className="videoGridContainer">
-            {searchResults.videos.map((video) => (
-              <GridVideo
+            {props.searchResults.videos.map((video: Video) => (
+              <GridView
                 key={video.videoId}
                 preview={video.preview}
                 title={video.title}
@@ -128,8 +110,8 @@ export const SearchResults: React.FC = () => {
           </div>
         ) : (
           <div className="videoListContainer">
-            {searchResults.videos.map((video) => (
-              <ListVideo
+            {props.searchResults.videos.map((video: Video) => (
+              <ListView
                 key={video.videoId}
                 preview={video.preview}
                 title={video.title}

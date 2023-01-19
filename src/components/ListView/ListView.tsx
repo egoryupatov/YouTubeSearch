@@ -3,7 +3,7 @@ import { Video } from "../../constants/constants";
 import "./ListView.scss";
 import { countViews } from "../../utils/countViews";
 
-export const ListVideo: React.FC<Video> = (props) => {
+export const ListView: React.FC<Video> = (props) => {
   return (
     <div className="listVideo">
       <div className="preview">
@@ -12,12 +12,13 @@ export const ListVideo: React.FC<Video> = (props) => {
           href={`https://www.youtube.com/watch?v=${props.videoId}`}
           rel="noreferrer"
         >
+          <div className="tooltipLeft" />
           <img src={props.preview} alt="" />
+          <div className="tooltipRight" />
         </a>
       </div>
       <div className="info">
         <div className="title">
-          {" "}
           <a
             target="_blank"
             href={`https://www.youtube.com/watch?v=${props.videoId}`}

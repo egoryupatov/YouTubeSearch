@@ -17,6 +17,11 @@
   justify-content: center;
   background: $background;
   min-height: 100vh;
+
+  @media screen and (min-width: 320px) {
+    padding: 0px 10px;
+  }
+
 }
 
 .formContainer {
@@ -27,15 +32,23 @@
   border-radius: 10px;
   width: 510px;
   padding: 0px 88px;
+
+  @media screen and (min-width: 320px) {
+    padding: 0px 25px;
+    width: 100%;
+  }
+}
+
+.active {
+  color: $siberianBlue;
+  padding-bottom: 28px;
+  border-bottom: 2px solid $siberianBlue;
+  text-transform: capitalize;
 }
 
 a {
   cursor: pointer;
   text-decoration: none;
-}
-
-a:visited {
-  color: inherit;
 }
 
 button {

@@ -16,6 +16,15 @@
     padding: 0px 200px;
     font-size: 18px;
     color: #bebebe;
+
+    @media screen and (min-width: 768px) {
+        padding: 0px 10px;
+    }
+
+    @media screen and (min-width: 320px) {
+        padding: 0px;
+        font-size: 14px;
+    }
 }
 
 .navbarLogo {
@@ -29,6 +38,10 @@
     align-items: center;
     gap: 40px;
     padding: 26px 20px;
+
+    @media screen and (min-width: 320px) {
+        gap: 20px;
+    }
 }
 
 .rightMenu {

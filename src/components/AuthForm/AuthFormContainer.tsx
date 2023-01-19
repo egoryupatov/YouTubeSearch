@@ -19,7 +19,7 @@ export const AuthFormContainer: React.FC = () => {
   });
 
   const onPasswordVisibilityChange = () => {
-    setIsPasswordVisible((prevState) => !prevState);
+    setIsPasswordVisible((prevState: boolean) => !prevState);
   };
   const onSignInClick = () => {
     users.forEach((user: UserData) => {

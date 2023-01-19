@@ -16,10 +16,22 @@
   gap:40px;
   align-items: center;
   margin-top: 220px;
+
+  @media screen and (min-width: 768px) {
+    padding: 0 40px;
+  }
+
+  @media screen and (min-width: 320px) {
+    padding: 0px 25px;
+  }
 }
 
 .searchTitle {
   font-size: 36px;
+
+  @media screen and (min-width: 320px) {
+      font-size: 26px;
+  }
 }
 
 .searchForm {
@@ -56,6 +68,11 @@
       color: #272727;
       background: #eaf3fa;
     }
+
+    @media screen and (min-width: 320px) {
+      font-size: 16px;
+    }
+
   }
 
   button {
@@ -64,5 +81,9 @@
     font-size: 20px;
     background: $siberianBlue;
     border: none;
+
+    @media screen and (min-width: 320px) {
+      font-size: 16px;
+    }
   }
 }

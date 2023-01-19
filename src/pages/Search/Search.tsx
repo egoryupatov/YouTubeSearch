@@ -1,47 +1,17 @@
 import React from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
-import "./Search.scss";
-import axios from "axios";
-import { APIKey } from "../../constants/constants";
-import { useDispatch } from "react-redux";
-import { apiTransform } from "../../api/apiTransform";
-import {
-  selectSearchRequest,
-  setSearchRequest,
-  setSearchResults,
-  setSearchResultsForRequest,
-} from "../../store/videosSlice";
-import { useAppSelector } from "../../store/hooks";
-import { useNavigate } from "react-router-dom";
+import { NavbarContainer } from "../../components/Navbar/NavbarContainer";
+import { setSearchRequest } from "../../store/videosSlice";
+import { Dispatch } from "@reduxjs/toolkit";
 
-export const Search: React.FC = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+interface SearchProps {
+  dispatch: Dispatch;
+  onSearchClick: () => void;
+}
 
-  const searchRequest = useAppSelector(selectSearchRequest);
-
-  const onSearchClick = async () => {
-    const searchForKeywordResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${searchRequest}&key=${APIKey}`
-    );
-
-    const videoIDs = searchForKeywordResults.data.items
-      .map((item: any) => item.id.videoId)
-      .join("%2C");
-
-    const detailedSearchResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
-    );
-
-    dispatch(setSearchResults(apiTransform(detailedSearchResults)));
-    dispatch(setSearchRequest(searchRequest));
-    dispatch(setSearchResultsForRequest(searchRequest));
-    navigate("/results");
-  };
-
+export const Search: React.FC<SearchProps> = (props) => {
   return (
     <div className="searchPageContainer">
-      <Navbar />
+      <NavbarContainer />
 
       <div className="searchContainer">
         <div className="searchTitle">Search for a video</div>
@@ -49,12 +19,14 @@ export const Search: React.FC = () => {
           <input
             type="text"
             placeholder="What are you looking for?"
-            onChange={(event) => dispatch(setSearchRequest(event.target.value))}
+            onChange={(event) =>
+              props.dispatch(setSearchRequest(event.target.value))
+            }
             onKeyDown={(event) =>
-              event.key === "Enter" ? onSearchClick() : null
+              event.key === "Enter" ? props.onSearchClick() : null
             }
           />
-          <button onClick={onSearchClick}>Search</button>
+          <button onClick={props.onSearchClick}>Search</button>
         </div>
       </div>
     </div>

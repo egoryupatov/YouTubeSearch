@@ -1,6 +1,19 @@
 import { Video } from "../constants/constants";
 
-export const apiTransform = (answer: any) => {
+interface PageInfo {
+  totalResults: number;
+}
+
+interface Data {
+  pageInfo: PageInfo;
+  items: Video[];
+}
+
+interface APIAnswer {
+  data: Data;
+}
+
+export const apiTransform = (answer: APIAnswer) => {
   const videos: Video[] = [];
   const count = answer.data.pageInfo.totalResults;
 
@@ -9,7 +22,7 @@ export const apiTransform = (answer: any) => {
       preview: searchResult.snippet.thumbnails.medium.url,
       title: searchResult.snippet.title,
       channel: searchResult.snippet.channelTitle,
-      videoId: searchResult.id.videoId,
+      videoId: searchResult.id,
       channelId: searchResult.snippet.channelId,
       views: searchResult.statistics.viewCount,
     };
