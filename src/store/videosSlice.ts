@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import { Video } from "../constants/constants";
+import { APIKey, Video } from "../constants/constants";
 
 export interface Results {
   videos: Video[];
@@ -12,6 +12,7 @@ interface UserState {
   searchRequest: string;
   searchResultsForRequest: string;
   isFavoritesNotificationDisplayed: boolean;
+  videosThunk: Video[];
 }
 
 const initialState: UserState = {
@@ -22,7 +23,21 @@ const initialState: UserState = {
   searchRequest: "",
   searchResultsForRequest: "",
   isFavoritesNotificationDisplayed: false,
+  videosThunk: [],
 };
+
+const fetchVideos = async (keyword: any) => {
+  return fetch(
+    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${keyword}&key=${APIKey}`
+  ).then((r) => r.json());
+};
+
+export const fetchVideosByKeyword = createAsyncThunk(
+  "videos/fetchVideosByKeyword",
+  async (keyword: any, thunkAPI) => {
+    return await fetchVideos(keyword);
+  }
+);
 
 export const videosSlice = createSlice({
   name: "videos",
@@ -40,6 +55,11 @@ export const videosSlice = createSlice({
     setIsFavoritesNotificationDisplayed: (state, action) => {
       state.isFavoritesNotificationDisplayed = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchVideosByKeyword.fulfilled, (state, action) => {
+      state.videosThunk = action.payload;
+    });
   },
 });
 

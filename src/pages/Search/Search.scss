@@ -17,11 +17,11 @@
   align-items: center;
   margin-top: 220px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 912px) {
     padding: 0 40px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 414px) {
     padding: 0px 25px;
   }
 }
@@ -29,7 +29,7 @@
 .searchTitle {
   font-size: 36px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 414px) {
       font-size: 26px;
   }
 }
@@ -69,7 +69,7 @@
       background: #eaf3fa;
     }
 
-    @media (max-width: 375px) {
+    @media (max-width: 414px) {
       font-size: 16px;
     }
 
@@ -82,7 +82,7 @@
     background: $siberianBlue;
     border: none;
 
-    @media (max-width: 375px) {
+    @media (max-width: 414px) {
       font-size: 16px;
     }
   }

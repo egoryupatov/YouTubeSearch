@@ -1,7 +1,11 @@
 import React from "react";
 import { NavbarContainer } from "../../components/Navbar/NavbarContainer";
-import { setSearchRequest } from "../../store/videosSlice";
+import {
+  fetchVideosByKeyword,
+  setSearchRequest,
+} from "../../store/videosSlice";
 import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 interface SearchProps {
   dispatch: Dispatch;
@@ -9,6 +13,14 @@ interface SearchProps {
 }
 
 export const Search: React.FC<SearchProps> = (props) => {
+  const dispatch = useDispatch();
+
+  const test = "asdas";
+
+  /*  const onThunkClick = () => {
+    dispatch(fetchVideosByKeyword(test));
+  };*/
+
   return (
     <div className="searchPageContainer">
       <NavbarContainer />
@@ -27,6 +39,7 @@ export const Search: React.FC<SearchProps> = (props) => {
             }
           />
           <button onClick={props.onSearchClick}>Search</button>
+          {/*    <button onClick={onThunkClick}>Thunk test</button>*/}
         </div>
       </div>
     </div>

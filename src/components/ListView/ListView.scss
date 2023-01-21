@@ -8,7 +8,7 @@
   height: 88px;
   gap:20px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 414px) {
     width: 100%;
   }
 
@@ -83,7 +83,7 @@
 .listVideo .title {
   color: black;
 
-  @media (max-width: 375px) {
+  @media (max-width: 414px) {
     font-size: 14px;
   }
 }
@@ -93,7 +93,7 @@
   flex-direction: column;
   gap:5px;
 
-  @media (max-width: 375px) {
+  @media (max-width: 414px) {
     font-size: 14px;
   }
 

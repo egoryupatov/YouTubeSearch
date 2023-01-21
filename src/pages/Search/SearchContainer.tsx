@@ -13,9 +13,10 @@ import {
 import { useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { Search } from "./Search";
+import { AppDispatch } from "../../store/store";
 
 export const SearchContainer: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const searchRequest = useAppSelector(selectSearchRequest);

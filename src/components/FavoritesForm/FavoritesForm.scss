@@ -9,15 +9,19 @@
   padding: 36px 40px;
   background: #FFFFFF;
   box-shadow: 0px 10px 50px rgba(19, 144, 229, 0.8);
-  position: absolute;
+  position: sticky;
   z-index: 1;
   margin: auto;
   left: 0;
   right: 0;
   top: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 912px) {
     margin-top: 100px;
+  }
+
+  @media (max-width: 414px) {
+    width: 90%;
   }
 }
 
