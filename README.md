@@ -1,28 +1,48 @@
-Hello! This is one of the simple applications I developed as a test assignment. 
+Hi! This is one of the apps I developed as a test assignment.
 
-Please keep in mind that while working on test assignment I strictly follow the app requirements 
+Please keep in mind that when working on a test assignment, I strictly follow the specified requirements and don't use every possible technology that I have experience with or want to use.
 
-## What was the goal
+## App requirements
 
-Develop an application which allows users to search youtube videos by keywords, and save their search queries.
+Develop an application which allows users to search YouTube videos by keywords, and save their search queries.
 
-You should avoid using any third-party UI libraries or CSS frameworks.
+Use the attached Figma template and avoid using any third-party UI libraries or CSS frameworks.
 
-App requirements:
+## App features
 
-1) Work with Youtube API
+The app features:
+
+1) Adaptive and responsive design
+2) Interaction with YouTube Api
 2) Authorization through json file, token and local storage
 3) The list and grid views of search results
 4) The "Favorite requests" feature
-5) The app should have adaptive and responsive design
+
+## Used technologies
+
+* Language - JavaScript/TypeScript
+* Framework/library - React
+* State management - Redux + Thunk
+* Routing - React Router
+* CSS - SASS
+* Database (or imitation) - local storage
 
 ## How to run the app
 
-Clone the repository to your local machine and simply use `npm i` and `npm start` to launch the app. 
+### On your local machine
 
-The live version of the app is available here https://youtube-seven-iota.vercel.app/
+1) Clone the project repository to your local machine
+2) Navigate into the project directory
+3) Install the dependencies: `npm install` or `yarn install`
+4) Start the development server: `npm start` or `yarn start`
 
-You can use the following credentials to test it:
+### Deployed app
+
+You can also take a look at the deployed version of the app here - https://youtube-search-zr9v.onrender.com/
+
+## Authorization details
+
+Use the following credentials to log in:
 
  - **Username**: John 
  - **Password**: qwerty
