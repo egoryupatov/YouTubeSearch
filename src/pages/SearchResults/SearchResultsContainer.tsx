@@ -5,12 +5,13 @@ import { GridView } from "../../components/GridView/GridView";
 import { ListView } from "../../components/ListView/ListView";
 import { APIKey } from "../../constants/constants";
 import {
+  fetchVideosByKeyword,
   searchResultsForRequest,
+  selectDataFetchFailed,
   selectIsFavoritesNotificationDisplayed,
   selectSearchRequest,
   selectSearchResults,
   setSearchRequest,
-  setSearchResults,
   setSearchResultsForRequest,
 } from "../../store/videosSlice";
 import axios from "axios";
@@ -20,9 +21,10 @@ import { useAppSelector } from "../../store/hooks";
 import { FavoritesFormContainer } from "../../components/FavoritesForm/FavoritesFormContainer";
 import { FavoritesNotification } from "../../components/FavoritesNotification/FavoritesNotification";
 import { SearchResults } from "./SearchResults";
+import { useAppDispatch } from "../../store/store";
 
 export const SearchResultsContainer: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [newSearchRequest, setNewSearchRequest] = useState<string>("");
   const [isFavoritesModalActive, setIsFavoritesModalActive] =
@@ -32,6 +34,7 @@ export const SearchResultsContainer: React.FC = () => {
   const searchRequest = useAppSelector(selectSearchRequest);
   const searchResults = useAppSelector(selectSearchResults);
   const searchResultsFor = useAppSelector(searchResultsForRequest);
+  const dataFetchFailed = useAppSelector(selectDataFetchFailed);
   const isFavoritesNotificationDisplayed = useAppSelector(
     selectIsFavoritesNotificationDisplayed
   );
@@ -39,24 +42,13 @@ export const SearchResultsContainer: React.FC = () => {
   const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
   const onSearchClick = async () => {
-    const searchForKeywordResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${newSearchRequest}&key=${APIKey}`
-    );
-
-    const videoIDs = searchForKeywordResults.data.items
-      .map((item: any) => item.id.videoId)
-      .join("%2C");
-
-    const detailedSearchResults = await axios.get(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
-    );
-
-    dispatch(setSearchResults(apiTransform(detailedSearchResults)));
+    await dispatch(fetchVideosByKeyword({ request: newSearchRequest }));
     dispatch(setSearchResultsForRequest(newSearchRequest));
   };
 
   return (
     <SearchResults
+      dataFetchFailed={dataFetchFailed}
       searchResults={searchResults}
       searchRequest={searchRequest}
       searchResultsFor={searchResultsFor}

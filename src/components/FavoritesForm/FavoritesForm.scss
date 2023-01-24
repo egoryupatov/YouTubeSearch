@@ -1,45 +1,43 @@
 @import "../../styles/variables";
 
-.modalContainer {
+.favoritesFormContainer {
   display: flex;
   flex-direction: column;
-  width: 510px;
+  width: 100%;
+  max-width: 490px;
   height:auto;
   border-radius: 10px;
   padding: 36px 40px;
   background: #FFFFFF;
   box-shadow: 0px 10px 50px rgba(19, 144, 229, 0.8);
-  position: sticky;
+  position: absolute;
   z-index: 1;
   margin: auto;
   left: 0;
   right: 0;
-  top: 30px;
+  top: 5%;
 
-  @media (max-width: 912px) {
-    margin-top: 100px;
-  }
-
-  @media (max-width: 414px) {
-    width: 90%;
+  @media (max-width: 520px) {
+    max-width: 90%;
+    top: 3%;
   }
 }
 
-.modalTitle {
+.favoritesFormTitle {
   display: flex;
   justify-content: center;
   font-weight: $fontBold;
   font-size: 18px;
 }
 
-.modalGroup {
+.favoritesFormGroup {
   display: flex;
   flex-direction: column;
   gap: 24px;
   margin-top: 36px;
 }
 
-.modalInputContainer {
+.favoritesFormInputContainer {
   display: flex;
   flex-direction: column;
   gap:20px;
@@ -51,6 +49,10 @@
     border: 1px solid #1717194D;
     font-size: 20px;
     outline: none;
+
+    @media (max-width: 414px) {
+      font-size: 18px;
+    }
   }
 
   select {
@@ -60,10 +62,13 @@
       font-size: 20px;
       outline: none;
 
+    @media (max-width: 414px) {
+      font-size: 18px;
+    }
   }
 }
 
-.modalTextField {
+.favoritesFormTextField {
   display: flex;
   gap: 5px;
   flex-direction: column;
@@ -72,14 +77,26 @@
 
   input {
     color: $gray;
+
+    @media (max-width: 414px) {
+      font-size: 16px;
+    }
   }
 
   label {
     color: $dark;
+
+    @media (max-width: 414px) {
+      font-size: 16px;
+    }
   }
 
   select {
     color: $gray;
+
+    @media (max-width: 414px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -108,6 +125,10 @@
   outline: none;
   text-align: center;
   color: $dark;
+
+  @media (max-width: 414px) {
+    font-size: 16px;
+  }
 }
 
 .sliderContainer {
@@ -125,14 +146,14 @@
   width: 100%;
 }
 
-.modalButtonsGroup {
+.favoritesFormButtonsGroup {
   display: flex;
   width: 100%;
   gap: 10px;
   margin-top: 36px;
 }
 
-.modalButtonBlue {
+.favoritesFormButtonBlue {
   display: flex;
   justify-content: center;
   height: 52px;
@@ -148,10 +169,14 @@
     background: $siberianBlue;
     cursor: pointer;
     width: 100%;
+
+    @media (max-width: 414px) {
+      font-size: 16px;
+    }
   }
 }
 
-.modalButtonWhite {
+.favoritesFormButtonWhite {
   display: flex;
   justify-content: center;
   height: 52px;
@@ -167,6 +192,11 @@
     background: #fafafa;
     cursor: pointer;
     width: 100%;
+
+    @media (max-width: 414px) {
+      font-size: 16px;
+    }
+
   }
 }
 

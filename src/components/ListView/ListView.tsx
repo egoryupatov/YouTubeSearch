@@ -1,11 +1,11 @@
 import React from "react";
-import { Video } from "../../constants/constants";
+import { IVideo } from "../../constants/constants";
 import "./ListView.scss";
 import { countViews } from "../../utils/countViews";
 
-export const ListView: React.FC<Video> = (props) => {
+export const ListView: React.FC<IVideo> = (props) => {
   return (
-    <div className="listVideo">
+    <div className="listView">
       <div className="preview">
         <a
           target="_blank"
@@ -24,7 +24,9 @@ export const ListView: React.FC<Video> = (props) => {
             href={`https://www.youtube.com/watch?v=${props.videoId}`}
             rel="noreferrer"
           >
-            {props.title}
+            {props.title.length >= 56
+              ? props.title.slice(0, 56) + "..."
+              : props.title}
           </a>
         </div>
         <div className="desc">

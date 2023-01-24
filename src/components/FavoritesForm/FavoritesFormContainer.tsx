@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./FavoritesForm.scss";
 import { useDispatch } from "react-redux";
 import { setIsFavoritesNotificationDisplayed } from "../../store/videosSlice";
-import { FavoriteRequest } from "../../constants/constants";
+import { IFavoriteRequest } from "../../constants/constants";
 import { FavoritesForm } from "./FavoritesForm";
 
 interface ModalProps {
@@ -21,9 +21,9 @@ export const FavoritesFormContainer: React.FC<ModalProps> = (props) => {
   useEffect(() => {
     setId(uuidv4());
   }, []);
-  const [id, setId] = useState<string>("");
-  const [requestName, setRequestName] = useState<string>("");
-  const [sortBy, setSortBy] = useState<string>("unsorted");
+  const [id, setId] = useState<string>("relevance");
+  const [requestName, setRequestName] = useState<string>("relevance");
+  const [sortBy, setSortBy] = useState<string>("searchSortUnspecified");
   const [maxResults, setMaxResults] = useState<number>(25);
   const [errors, setErrors] = useState<FavoritesModalFormErrors>({
     emptyName: false,
@@ -36,7 +36,7 @@ export const FavoritesFormContainer: React.FC<ModalProps> = (props) => {
     if (
       favorites &&
       favorites.find(
-        (favoriteRequest: FavoriteRequest) =>
+        (favoriteRequest: IFavoriteRequest) =>
           favoriteRequest.name === requestName
       )
     ) {

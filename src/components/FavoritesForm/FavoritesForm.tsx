@@ -14,18 +14,18 @@ interface FavoritesModalFormProps {
 
 export const FavoritesForm: React.FC<FavoritesModalFormProps> = (props) => {
   return (
-    <div className="modalContainer">
-      <div className="modalTitle">Save a search request</div>
+    <div className="favoritesFormContainer">
+      <div className="favoritesFormTitle">Save a search request</div>
 
-      <div className="modalGroup">
-        <div className="modalInputContainer">
-          <div className="modalTextField">
+      <div className="favoritesFormGroup">
+        <div className="favoritesFormInputContainer">
+          <div className="favoritesFormTextField">
             <label>Request</label>
             <input type="text" value={props.searchRequest} disabled />
           </div>
         </div>
-        <div className="modalInputContainer">
-          <div className="modalTextField">
+        <div className="favoritesFormInputContainer">
+          <div className="favoritesFormTextField">
             <label>Name</label>
             <input
               type="text"
@@ -34,14 +34,13 @@ export const FavoritesForm: React.FC<FavoritesModalFormProps> = (props) => {
             />
           </div>
         </div>
-        <div className="modalInputContainer">
-          <div className="modalTextField">
+        <div className="favoritesFormInputContainer">
+          <div className="favoritesFormTextField">
             <label>Sort by</label>
             <select onChange={(event) => props.setSortBy(event.target.value)}>
-              <option value={"unsorted"}>Unsorted</option>
+              <option value={"relevance"}>Relevance</option>
               <option value={"date"}>Date</option>
               <option value={"rating"}>Rating</option>
-              <option value={"relevance"}>Relevance</option>
               <option value={"title"}>Title</option>
               <option value={"videoCount"}>Video count</option>
               <option value={"viewCount"}>View count</option>
@@ -80,13 +79,13 @@ export const FavoritesForm: React.FC<FavoritesModalFormProps> = (props) => {
             </div>
           ) : null}
 
-          <div className="modalButtonsGroup">
-            <div className="modalButtonWhite">
+          <div className="favoritesFormButtonsGroup">
+            <div className="favoritesFormButtonWhite">
               <button onClick={() => props.setIsFavoritesModalActive(false)}>
                 Don't save
               </button>
             </div>
-            <div className="modalButtonBlue">
+            <div className="favoritesFormButtonBlue">
               <button onClick={props.onSaveClick}>Save</button>
             </div>
           </div>

@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import { APIKey, Video } from "../constants/constants";
+import { IVideo } from "../constants/constants";
+import { fetchVideos } from "../utils/fetchVideos";
 
-export interface Results {
-  videos: Video[];
+export interface ISearchResults {
+  videos: IVideo[];
   count: number;
 }
 
-interface UserState {
-  searchResults: Results;
+interface IUserState {
+  searchResults: ISearchResults;
   searchRequest: string;
   searchResultsForRequest: string;
   isFavoritesNotificationDisplayed: boolean;
-  videosThunk: Video[];
+  dataFetchFailed: boolean;
 }
 
-const initialState: UserState = {
+const initialState: IUserState = {
   searchResults: {
     videos: [],
     count: 0,
@@ -23,19 +24,24 @@ const initialState: UserState = {
   searchRequest: "",
   searchResultsForRequest: "",
   isFavoritesNotificationDisplayed: false,
-  videosThunk: [],
-};
-
-const fetchVideos = async (keyword: any) => {
-  return fetch(
-    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=12&q=${keyword}&key=${APIKey}`
-  ).then((r) => r.json());
+  dataFetchFailed: false,
 };
 
 export const fetchVideosByKeyword = createAsyncThunk(
   "videos/fetchVideosByKeyword",
-  async (keyword: any, thunkAPI) => {
-    return await fetchVideos(keyword);
+  async (
+    {
+      request,
+      maxResults,
+      order,
+    }: {
+      request: string;
+      maxResults?: number;
+      order?: string;
+    },
+    thunkAPI
+  ) => {
+    return await fetchVideos(request, maxResults, order);
   }
 );
 
@@ -43,9 +49,6 @@ export const videosSlice = createSlice({
   name: "videos",
   initialState,
   reducers: {
-    setSearchResults: (state, action) => {
-      state.searchResults = action.payload;
-    },
     setSearchRequest: (state, action) => {
       state.searchRequest = action.payload;
     },
@@ -57,14 +60,18 @@ export const videosSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchVideosByKeyword.fulfilled, (state, action) => {
-      state.videosThunk = action.payload;
-    });
+    builder
+      .addCase(fetchVideosByKeyword.fulfilled, (state, action) => {
+        state.searchResults = action.payload;
+        state.dataFetchFailed = false;
+      })
+      .addCase(fetchVideosByKeyword.rejected, (state, action) => {
+        state.dataFetchFailed = true;
+      });
   },
 });
 
 export const {
-  setSearchResults,
   setSearchRequest,
   setIsFavoritesNotificationDisplayed,
   setSearchResultsForRequest,
@@ -72,6 +79,9 @@ export const {
 
 export const selectSearchResults = (state: RootState) =>
   state.videos.searchResults;
+
+export const selectDataFetchFailed = (state: RootState) =>
+  state.videos.dataFetchFailed;
 
 export const selectSearchRequest = (state: RootState) =>
   state.videos.searchRequest;

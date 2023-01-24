@@ -1,11 +1,11 @@
 import React from "react";
 import "./GridView.scss";
-import { Video } from "../../constants/constants";
+import { IVideo } from "../../constants/constants";
 import { countViews } from "../../utils/countViews";
 
-export const GridView: React.FC<Video> = (props) => {
+export const GridView: React.FC<IVideo> = (props) => {
   return (
-    <div className="videoGrid">
+    <div className="gridView">
       <div className="preview">
         <a
           target="_blank"

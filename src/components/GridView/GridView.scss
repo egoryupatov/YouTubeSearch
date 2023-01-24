@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.videoGrid {
+.gridView {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -17,7 +17,7 @@
   }
 }
 
-.videoGrid .preview {
+.gridView .preview {
 
   position: relative;
 
@@ -33,7 +33,7 @@
   }
 }
 
-.videoGrid .tooltipLeft {
+.gridView .tooltipLeft {
   width: 0;
   height: 0;
   top: 50%;
@@ -44,7 +44,7 @@
   border-color: $siberianBlue transparent transparent transparent;
 }
 
-.videoGrid .tooltipLeft:before {
+.gridView .tooltipLeft:before {
   content: "";
   width: 0;
   height: 0;
@@ -55,7 +55,7 @@
   border-color: #fafafa transparent transparent transparent;
 }
 
-.videoGrid .tooltipRight {
+.gridView .tooltipRight {
   width: 0;
   height: 0;
   top: 50%;
@@ -66,7 +66,7 @@
   border-color: $siberianBlue transparent transparent transparent;
 }
 
-.videoGrid .tooltipRight:before {
+.gridView .tooltipRight:before {
   content: "";
   width: 0;
   height: 0;
@@ -77,11 +77,11 @@
   border-color: #fafafa transparent transparent transparent;
 }
 
-.videoGrid .title {
+.gridView .title {
   font-weight: $fontBold;
 }
 
-.videoGrid .desc {
+.gridView .desc {
   display: flex;
   flex-direction: column;
   color: #b4b4b4;

@@ -4,8 +4,8 @@ import { FavoritesFormContainer } from "../../components/FavoritesForm/Favorites
 import { FavoritesNotification } from "../../components/FavoritesNotification/FavoritesNotification";
 import { GridView } from "../../components/GridView/GridView";
 import { ListView } from "../../components/ListView/ListView";
-import { Results } from "../../store/videosSlice";
-import { Video } from "../../constants/constants";
+import { ISearchResults } from "../../store/videosSlice";
+import { IVideo } from "../../constants/constants";
 
 interface SearchResultsProps {
   isFavoritesModalActive: boolean;
@@ -16,16 +16,16 @@ interface SearchResultsProps {
   onSearchClick: () => void;
   isFavoritesNotificationDisplayed: boolean;
   searchResultsFor: string;
-  searchResults: Results;
+  searchResults: ISearchResults;
   isGridViewEnabled: boolean;
   setIsGridViewEnabled: (isGridViewEnabled: boolean) => void;
+  dataFetchFailed: boolean;
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = (props) => {
   return (
     <div className="searchResultsPageContainer">
       <NavbarContainer />
-
       {props.isFavoritesModalActive ? (
         <FavoritesFormContainer
           setIsFavoritesModalActive={props.setIsFavoritesModalActive}
@@ -67,11 +67,19 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
 
         <div className="searchResultsToolBar">
           <div className="searchResultsInfo">
-            <div>Search results for "{props.searchResultsFor}"</div>
-            <div className="numberOfSearchResults">
-              {props.searchResults.count}
-            </div>
+            {props.dataFetchFailed ? (
+              "Something went wrong!"
+            ) : (
+              <>
+                <div>Search results for "{props.searchResultsFor}"</div>
+
+                <div className="numberOfSearchResults">
+                  {props.searchResults.count}
+                </div>
+              </>
+            )}
           </div>
+
           <div className="searchResultsView">
             <img
               onClick={() => props.setIsGridViewEnabled(false)}
@@ -96,7 +104,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
 
         {props.isGridViewEnabled ? (
           <div className="videoGridContainer">
-            {props.searchResults.videos.map((video: Video) => (
+            {props.searchResults.videos.map((video: IVideo) => (
               <GridView
                 key={video.videoId}
                 preview={video.preview}
@@ -110,7 +118,7 @@ export const SearchResults: React.FC<SearchResultsProps> = (props) => {
           </div>
         ) : (
           <div className="videoListContainer">
-            {props.searchResults.videos.map((video: Video) => (
+            {props.searchResults.videos.map((video: IVideo) => (
               <ListView
                 key={video.videoId}
                 preview={video.preview}

@@ -1,20 +1,20 @@
-import { Video } from "../constants/constants";
+import { IVideo } from "../constants/constants";
 
-interface PageInfo {
+interface IPageInfo {
   totalResults: number;
 }
 
-interface Data {
-  pageInfo: PageInfo;
-  items: Video[];
+interface IData {
+  pageInfo: IPageInfo;
+  items: IVideo[];
 }
 
-interface APIAnswer {
-  data: Data;
+interface IAPIAnswer {
+  data: IData;
 }
 
-export const apiTransform = (answer: APIAnswer) => {
-  const videos: Video[] = [];
+export const apiTransform = (answer: IAPIAnswer) => {
+  const videos: IVideo[] = [];
   const count = answer.data.pageInfo.totalResults;
 
   answer.data.items.forEach((searchResult: any) => {

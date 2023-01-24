@@ -1,6 +1,6 @@
-export const APIKey = "AIzaSyBDruJEOObi2q0EzetH-3u_v82UT_xoKJ0";
+export const APIKey = "AIzaSyDEa-0ZXRukSx5Bi_hp5uLhofK9MquSQIE";
 
-export interface Video {
+export interface IVideo {
   preview: string;
   title: string;
   channel: string;
@@ -9,10 +9,29 @@ export interface Video {
   channelId: string;
 }
 
-export interface FavoriteRequest {
+export interface IFavoriteRequest {
   id: string;
   name: string;
   request: string;
   sortBy: string;
   maxResults: number;
+}
+
+export interface ISearchResult {
+  snippet: {
+    thumbnails: {
+      medium: {
+        url: string;
+      };
+    };
+    title: string;
+    channelTitle: string;
+    channelId: string;
+  };
+  id: {
+    videoId: string;
+  };
+  statistics: {
+    viewCount: number;
+  };
 }
