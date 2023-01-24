@@ -5,7 +5,7 @@ import { FavoritesNotification } from "../../components/FavoritesNotification/Fa
 import { GridView } from "../../components/GridView/GridView";
 import { ListView } from "../../components/ListView/ListView";
 import { ISearchResults } from "../../store/videosSlice";
-import { IVideo } from "../../constants/constants";
+import { IVideo } from "../../types/general.types";
 
 interface SearchResultsProps {
   isFavoritesModalActive: boolean;

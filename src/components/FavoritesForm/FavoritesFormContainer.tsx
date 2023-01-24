@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./FavoritesForm.scss";
 import { useDispatch } from "react-redux";
 import { setIsFavoritesNotificationDisplayed } from "../../store/videosSlice";
-import { IFavoriteRequest } from "../../constants/constants";
+import { IFavoriteRequest } from "../../types/general.types";
 import { FavoritesForm } from "./FavoritesForm";
 
 interface ModalProps {

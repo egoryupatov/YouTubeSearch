@@ -6,7 +6,7 @@ import { ListView } from "../../components/ListView/ListView";
 import { APIKey } from "../../constants/constants";
 import {
   fetchVideosByKeyword,
-  searchResultsForRequest,
+  selectSearchResultsForRequest,
   selectDataFetchFailed,
   selectIsFavoritesNotificationDisplayed,
   selectSearchRequest,
@@ -15,7 +15,7 @@ import {
   setSearchResultsForRequest,
 } from "../../store/videosSlice";
 import axios from "axios";
-import { apiTransform } from "../../api/apiTransform";
+import { apiAnswerTransform } from "../../api/apiAnswerTransform";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../store/hooks";
 import { FavoritesFormContainer } from "../../components/FavoritesForm/FavoritesFormContainer";
@@ -33,7 +33,7 @@ export const SearchResultsContainer: React.FC = () => {
 
   const searchRequest = useAppSelector(selectSearchRequest);
   const searchResults = useAppSelector(selectSearchResults);
-  const searchResultsFor = useAppSelector(searchResultsForRequest);
+  const searchResultsFor = useAppSelector(selectSearchResultsForRequest);
   const dataFetchFailed = useAppSelector(selectDataFetchFailed);
   const isFavoritesNotificationDisplayed = useAppSelector(
     selectIsFavoritesNotificationDisplayed
@@ -41,7 +41,7 @@ export const SearchResultsContainer: React.FC = () => {
 
   const favoriteRequests = JSON.parse(localStorage.getItem("favorites")!);
 
-  const onSearchClick = async () => {
+  const handleSearchClick = async () => {
     await dispatch(fetchVideosByKeyword({ request: newSearchRequest }));
     dispatch(setSearchResultsForRequest(newSearchRequest));
   };
@@ -52,7 +52,7 @@ export const SearchResultsContainer: React.FC = () => {
       searchResults={searchResults}
       searchRequest={searchRequest}
       searchResultsFor={searchResultsFor}
-      onSearchClick={onSearchClick}
+      onSearchClick={handleSearchClick}
       isFavoritesNotificationDisplayed={isFavoritesNotificationDisplayed}
       isGridViewEnabled={isGridViewEnabled}
       isFavoritesModalActive={isFavoritesModalActive}

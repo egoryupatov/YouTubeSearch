@@ -10,7 +10,6 @@ interface AuthFormProps {
   userData: UserData;
   isPasswordVisible: boolean;
   isErrorMessageVisible: boolean;
-  ref: Ref<HTMLInputElement>;
   onPasswordVisibilityChange: () => void;
   onSignInClick: () => void;
 }
@@ -41,7 +40,6 @@ export const AuthForm: React.FC<AuthFormProps> = (props) => {
             <div className="passwordField">
               <input
                 type={props.isPasswordVisible ? "text" : "password"}
-                ref={props.ref}
                 onChange={(event) =>
                   props.setUserData({
                     ...props.userData,

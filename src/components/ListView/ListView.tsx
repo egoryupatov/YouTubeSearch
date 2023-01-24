@@ -1,5 +1,5 @@
 import React from "react";
-import { IVideo } from "../../constants/constants";
+import { IVideo } from "../../types/general.types";
 import "./ListView.scss";
 import { countViews } from "../../utils/countViews";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavbarContainer } from "../../components/Navbar/NavbarContainer";
-import { IFavoriteRequest } from "../../constants/constants";
+import { IFavoriteRequest } from "../../types/general.types";
 
 interface FavoritesProps {
   favorites: [];

@@ -1,6 +1,6 @@
 import React from "react";
 import "./GridView.scss";
-import { IVideo } from "../../constants/constants";
+import { IVideo } from "../../types/general.types";
 import { countViews } from "../../utils/countViews";
 
 export const GridView: React.FC<IVideo> = (props) => {

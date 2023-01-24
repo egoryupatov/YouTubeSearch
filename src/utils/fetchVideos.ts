@@ -1,6 +1,7 @@
 import axios from "axios";
-import { APIKey, ISearchResult } from "../constants/constants";
-import { apiTransform } from "../api/apiTransform";
+import { APIKey } from "../constants/constants";
+import { ISearchResult } from "../types/general.types";
+import { apiAnswerTransform } from "../api/apiAnswerTransform";
 
 export const fetchVideos = async (
   request: string,
@@ -21,5 +22,5 @@ export const fetchVideos = async (
     `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2C%20statistics&id=${videoIDs}&key=${APIKey}`
   );
 
-  return apiTransform(detailedSearchResults);
+  return apiAnswerTransform(detailedSearchResults);
 };

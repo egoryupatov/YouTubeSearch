@@ -11,8 +11,6 @@ export const AuthFormContainer: React.FC = () => {
   const navigate = useNavigate();
   let users = require("../../users.json");
 
-  const ref = createRef<HTMLInputElement>();
-
   const [userData, setUserData] = useState<UserData>({
     username: "",
     password: "",
@@ -40,7 +38,6 @@ export const AuthFormContainer: React.FC = () => {
     <AuthForm
       isPasswordVisible={isPasswordVisible}
       isErrorMessageVisible={isErrorMessageVisible}
-      ref={ref}
       onPasswordVisibilityChange={onPasswordVisibilityChange}
       onSignInClick={onSignInClick}
       setUserData={setUserData}

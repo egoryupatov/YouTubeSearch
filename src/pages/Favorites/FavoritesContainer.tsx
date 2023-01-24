@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Favorites.scss";
-import { IFavoriteRequest } from "../../constants/constants";
+import { IFavoriteRequest } from "../../types/general.types";
 import {
   fetchVideosByKeyword,
   setIsFavoritesNotificationDisplayed,
@@ -23,7 +23,7 @@ export const FavoritesContainer: React.FC = () => {
     JSON.parse(localStorage.getItem("favorites")!)
   );
 
-  const onRequestClick = async (request: IFavoriteRequest) => {
+  const handleRequestClick = async (request: IFavoriteRequest) => {
     await dispatch(
       fetchVideosByKeyword({
         request: request.request,
@@ -36,7 +36,7 @@ export const FavoritesContainer: React.FC = () => {
     navigate("/results");
   };
 
-  const onDeleteRequestClick = (requestName: string) => {
+  const handleDeleteRequestClick = (requestName: string) => {
     const favorites = JSON.parse(localStorage.getItem("favorites")!).filter(
       (request: IFavoriteRequest) => request.name !== requestName
     );
@@ -47,8 +47,8 @@ export const FavoritesContainer: React.FC = () => {
   return (
     <Favorites
       favorites={favorites}
-      onDeleteRequestClick={onDeleteRequestClick}
-      onRequestClick={onRequestClick}
+      onDeleteRequestClick={handleDeleteRequestClick}
+      onRequestClick={handleRequestClick}
     />
   );
 };

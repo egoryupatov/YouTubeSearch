@@ -6,10 +6,10 @@ import { Navbar } from "./Navbar";
 export const NavbarContainer: React.FC = (props) => {
   const navigate = useNavigate();
 
-  const onSignOutClick = () => {
+  const handleSignOutClick = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
-  return <Navbar onSignOutClick={onSignOutClick} />;
+  return <Navbar onSignOutClick={handleSignOutClick} />;
 };

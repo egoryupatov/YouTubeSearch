@@ -1,23 +1,10 @@
-import { IVideo } from "../constants/constants";
+import { ISearchResult } from "./apiAnswerTransform.types";
+import { IAPIAnswer } from "./apiAnswerTransform.types";
 
-interface IPageInfo {
-  totalResults: number;
-}
-
-interface IData {
-  pageInfo: IPageInfo;
-  items: IVideo[];
-}
-
-interface IAPIAnswer {
-  data: IData;
-}
-
-export const apiTransform = (answer: IAPIAnswer) => {
-  const videos: IVideo[] = [];
+export const apiAnswerTransform = (answer: IAPIAnswer) => {
   const count = answer.data.pageInfo.totalResults;
 
-  answer.data.items.forEach((searchResult: any) => {
+  const videos = answer.data.items.map((searchResult: ISearchResult) => {
     const video = {
       preview: searchResult.snippet.thumbnails.medium.url,
       title: searchResult.snippet.title,
@@ -27,7 +14,7 @@ export const apiTransform = (answer: IAPIAnswer) => {
       views: searchResult.statistics.viewCount,
     };
 
-    videos.push(video);
+    return video;
   });
 
   const searchResults = {

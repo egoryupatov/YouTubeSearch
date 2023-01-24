@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import { IVideo } from "../constants/constants";
+import { IVideo } from "../types/general.types";
 import { fetchVideos } from "../utils/fetchVideos";
 
 export interface ISearchResults {
@@ -13,7 +13,7 @@ interface IUserState {
   searchRequest: string;
   searchResultsForRequest: string;
   isFavoritesNotificationDisplayed: boolean;
-  dataFetchFailed: boolean;
+  isDataFetchFailed: boolean;
 }
 
 const initialState: IUserState = {
@@ -24,7 +24,7 @@ const initialState: IUserState = {
   searchRequest: "",
   searchResultsForRequest: "",
   isFavoritesNotificationDisplayed: false,
-  dataFetchFailed: false,
+  isDataFetchFailed: false,
 };
 
 export const fetchVideosByKeyword = createAsyncThunk(
@@ -63,10 +63,10 @@ export const videosSlice = createSlice({
     builder
       .addCase(fetchVideosByKeyword.fulfilled, (state, action) => {
         state.searchResults = action.payload;
-        state.dataFetchFailed = false;
+        state.isDataFetchFailed = false;
       })
-      .addCase(fetchVideosByKeyword.rejected, (state, action) => {
-        state.dataFetchFailed = true;
+      .addCase(fetchVideosByKeyword.rejected, (state) => {
+        state.isDataFetchFailed = true;
       });
   },
 });
@@ -81,12 +81,12 @@ export const selectSearchResults = (state: RootState) =>
   state.videos.searchResults;
 
 export const selectDataFetchFailed = (state: RootState) =>
-  state.videos.dataFetchFailed;
+  state.videos.isDataFetchFailed;
 
 export const selectSearchRequest = (state: RootState) =>
   state.videos.searchRequest;
 
-export const searchResultsForRequest = (state: RootState) =>
+export const selectSearchResultsForRequest = (state: RootState) =>
   state.videos.searchResultsForRequest;
 
 export const selectIsFavoritesNotificationDisplayed = (state: RootState) =>
